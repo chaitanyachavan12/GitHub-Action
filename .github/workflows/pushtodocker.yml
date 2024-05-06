@@ -35,6 +35,4 @@ jobs:
       - name: test
         run: echo "hello"
       - name: docker tag & push  
-        run: docker tag fast_api:satyam shubhambawa98/testlkm:satyam && docker push shubhambawa98/testlkm:satyam      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+        run: docker tag fast_api:satyam shubhambawa98/testlkm:satyam && docker push shubhambawa98/testlkm:satyam
