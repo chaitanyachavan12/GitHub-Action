@@ -16,6 +16,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
+  Buildandpushdocker:
+    runs-on: ubuntu-latest
+    environment: Dev 
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -23,9 +26,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
+      - name: gitclone 
+        run: git clone https://github.com/Shubhambawa98/testenv.git
+      - name: docker installation 
+        run: curl -fsSL https://get.docker.com | sh 
+      - name: docker login 
+        run: docker login -u ${{secrets.DOCKERHUBUSERNAME}} -p ${{secrets.DOCKERHUBPASSWORD}}
+      - name: docker build 
+        run: cd testenv && docker build . -t fast_api:satyam
+      - name: test
+        run: echo "hello"
+      - name: docker tag & push  
+        run: docker tag fast_api:satyam shubhambawa98/testlkm:satyam && docker push shubhambawa98/testlkm:satyam      # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
 
